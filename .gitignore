@@ -1,3 +1,17 @@
-cmake-build-debug/
+# CLion
 .idea/
-.idea/workspace.xml/
+
+# CMake
+cmake-build-*/
+build/
+
+# Compiled files
+*.o
+*.obj
+*.exe
+
+# macOS
+.DS_Store
+
+# Personal backups
+Sauvegarde/
