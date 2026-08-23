@@ -1,43 +1,130 @@
-# **Projet CDataframe**
+# Projet CDataframe
 
----
-* Arnaud BERNARD
-* Sami BENABDALLAH
+Implémentation en langage C d'une structure de données inspirée du **DataFrame** de la librairie Python **Pandas**, 
+réalisée dans le cadre du cours *Algorithmique et Structures de Données 1* à l'EFREI (2ᵉ semestre).
 
-### **[Lien du Git](https://github.com/Arnaud-Bnd/Projet_CDataframe)**
+L'objectif : proposer, en C pur, une structure tabulaire organisée en colonnes (titre + données), avec les opérations de 
+base qu'on attend d'un tableur ou d'un DataFrame — création, saisie, affichage, recherche, tri, statistiques, 
+import/export CSV.
 
----
+## Fonctionnalités
 
-Nous avons choisi, pour notre projet, de faire un CDataframe dont les colonnes ne contiennent uniquement des données de types entiers, un CDataframe fait à partir d'un tableau dynamique.
-Enfin, pour les fonctionnalités, nous hésitons encore entre des fonctionnalités basiques et des fonctionnalités avancées, bien que notre choix se porte pour l'instant d'avantage sur la deuxième option.
+Le programme s'utilise via un menu interactif en console qui permet de :
 
----
-Pour répartir équitablement les tâches entre les deux membres de l'équipe, nous pourrions envisager une répartition basée sur les domaines d'expertise, les préférences personnelles et les disponibilités de chacun.
+**Alimentation**
+- Créer un CDataframe vide ou pré-rempli (`hardFilling`)
+- Remplir le CDataframe via saisie utilisateur
+- Charger des données depuis un fichier CSV
 
-###
-**Sami :**
-* Implémentation des fonctions de base :
-  * Création d'un CDataframe vide,
-  * Remplissage du CDataframe à partir de saisis utilisateurs,
-  * Affichage de tout le CDataframe,
-  * Ajout et suppression de lignes de valeurs.
-* Implémentation des fonctions d'analyse et de statistiques :
-  * Affichage du nombre de lignes et de colonnes,
-  * Comptage des cellules contenant une valeur égale, supérieure ou inférieure à une valeur donnée.
-* Documentation : 
-  * Rédaction du README et des commentaires dans le code.
+**Affichage**
+- Afficher le CDataframe entier
+- Afficher une plage de lignes ou de colonnes
+- Afficher les noms des colonnes
 
-**Arnaud :**
-* Implémentation des fonctions de base :
-  * Remplissage en dur du CDataframe,
-  * Affichage d'une partie des lignes et des colonnes du CDataframe,
-  * Ajout et suppression de colonnes au CDataframe.
-* Implémentation des opérations usuelles :
-  * Renommage du titre d’une colonne,
-  * Recherche de l’existence d’une valeur dans le CDataframe,
-  * Accès et remplacement de la valeur dans une cellule du CDataframe.
----
-**Tests unitaires :**
-* Écriture de tests pour valider le bon fonctionnement des fonctions implémentées.
-En divisant les tâches de cette manière.
-Il est également important de maintenir une communication ouverte tout au long du processus pour résoudre les problèmes et les défis qui pourraient survenir, on a donc communiqué par whatsapp pour s'organiser correctement
+**Opérations sur les données**
+- Ajouter / supprimer une ligne
+- Ajouter / supprimer / renommer une colonne
+- Accéder ou remplacer une cellule via ses indices (ligne, colonne)
+- Rechercher une valeur dans le CDataframe
+
+**Analyse & statistiques**
+- Nombre de lignes / de colonnes
+- Nombre de cellules égales à / supérieures à / inférieures à une valeur donnée
+
+**Tri & recherche avancée**
+- Trier une colonne (croissant / décroissant) sans déplacer les données, grâce à un **tableau d'index**
+- Afficher une colonne selon son index trié
+- Recherche dichotomique dans une colonne triée
+- Gestion de la validité de l'index (`checkIndex`, `updateIndex`, `eraseIndex`)
+
+**Fichiers**
+- Import / export au format CSV
+
+## Structure du projet
+
+```text
+.
+├── include/            # Fichiers d'en-tête (.h)
+│ ├── cdataframe.h      # API du CDataframe
+│ ├── column.h          # API des colonnes
+│ ├── SortType.h        # Types/constantes de tri
+│ ├── features.h        # Fonctions du menu / CSV
+│ └── Errors.h          # Gestion des erreurs (macros de vérification de pointeurs)
+├── src/                # Implémentation (.c)
+│ ├── cdataframe.c
+│ ├── column.c
+│ ├── features.c
+│ ├── Errors.c
+│ └── main.c            # Point d'entrée + menu interactif
+├── CMakeLists.txt
+├── Dockerfile
+└── data.csv            # Jeu de données d'exemple
+```
+
+
+### Modèle de données
+
+Un **CDataframe** est un tableau dynamique de pointeurs vers des **colonnes**. Chaque colonne possède :
+
+- un titre,
+- un tableau de données de type `int`,
+- une taille physique (capacité allouée, réallouée par blocs de 256) et une taille logique (nombre de valeurs réellement 
+insérées),
+- un tableau d'**index** utilisé pour trier la colonne sans déplacer les données, avec un attribut de validité 
+(`mValidIndex`) permettant de savoir si l'index est à jour, invalidé partiellement (après une insertion) ou totalement.
+
+## Compilation
+
+### Avec CMake
+
+```bash
+mkdir build && cd build
+cmake ..
+cmake --build .
+./Projet_CDataframe
+```
+
+### Avec Docker
+
+```bash
+docker build -t cdataframe .
+docker run --rm -it cdataframe
+```
+
+## Utilisation
+
+Au lancement, le programme affiche un menu numéroté dans le terminal. Il suffit de saisir le numéro de l'action 
+souhaitée puis de suivre les instructions à l'écran (nom de colonne, valeurs, bornes de lignes, etc.).
+
+Le programme lit et écrit les fichiers CSV (`data.csv`, `data2.csv`, `CDataFrame.csv`) dans le **répertoire courant 
+d'exécution**. Le plus simple est donc de lancer l'exécutable depuis la racine du projet (là où se trouve `data.csv`) :
+
+```bash
+# depuis la racine du dépôt, après compilation
+./build/Projet_CDataframe
+```
+
+Si tu compiles dans un sous-dossier (ex. `build/`), pense à copier `data.csv` à côté de l'exécutable, ou à lancer le 
+programme depuis la racine comme ci-dessus.
+
+## Contexte pédagogique
+
+Ce projet a été réalisé en binôme dans le cadre du cours d'Algorithmique et Structures de Données à l'EFREI (Mars-Mai 
+2024), en trois parties :
+
+1. **Partie 1** — CDataframe d'entiers, opérations de base
+2. **Partie 2** — Ajout d'un système d'index pour un tri efficace (Quicksort / tri par insertion selon l'état de la 
+colonne) et recherche dichotomique
+3. **Partie 3** *(fonctionnalités avancées)* — Import/export CSV
+
+## Pistes d'amélioration
+
+- Généraliser la colonne à des types génériques (`union`), pour stocker autre chose que des entiers
+- Ajouter des tests unitaires
+- Vérifier systématiquement les retours de `malloc`/`realloc`
+
+## Auteur
+
+**Arnaud BERNARD** — EFREI Paris, Data Engineering
+
+**Sami BENABDALLAH** — EFREI Paris

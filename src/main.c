@@ -1,19 +1,19 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "column.h"
-#include "cdataframe.h"
-#include "features.h"
+#include "../include/column.h"
+#include "../include/cdataframe.h"
+#include "../include/features.h"
 
 int main2() {
-    CDataFrame *cdt = loadFromCsv("/Users/arnaudbernard/Documents/01 - Efrei/Année 1/S2/Algorithmique et structure de données/Projet-CDataFrame/data.csv", 20);
+    CDataFrame *cdt = loadFromCsv("./data.csv", 20);
     //printf("%s\n", cdt->column[0]->title);
     printCdt(cdt);
 
     CDataFrame *mycdt = hardFilling();
     printCdt(mycdt);
 
-    saveIntoCsv(mycdt, "/Users/arnaudbernard/Documents/01 - Efrei/Année 1/S2/Algorithmique et structure de données/Projet-CDataFrame/data2.csv");
+    saveIntoCsv(mycdt, "./data2.csv");
     return 0;
 }
 
@@ -449,7 +449,7 @@ int main() {
                     scanf("%u", &isort_order);
                     SortType sort_order = (SortType)isort_order;
 
-                    cdt->mColumn[index]->mValidIndex = -1; /////////////////////////////////////////////////////////////////////////////////
+                    cdt->mColumn[index]->mValidIndex = -1;
                     if (sort_order == asc)
                         sort(cdt->mColumn[index], asc);
                     else if (sort_order == desc)
@@ -577,7 +577,7 @@ int main() {
                         break;
                     }
 
-                    cdt->mColumn[index]->mValidIndex = -1; //////////////////////////////////////////////////////////////////////////
+                    cdt->mColumn[index]->mValidIndex = -1;
                     updateIndex(cdt->mColumn[index]);
                     break;
                 }
@@ -616,12 +616,12 @@ int main() {
                 }
 
                 case 30 : { /* Charger un fichier data.csv */
-                    cdt = loadFromCsv("/Users/arnaudbernard/Documents/01 - Efrei/Année 1/S2/Algorithmique et structure de données/Projet-CDataFrame/data.csv", 20);
+                    cdt = loadFromCsv("./data.csv", 20);
                     break;
                 }
 
                 case 31 : { /* Sauvegarder le CDataFrame dans un CDataFrame.csv */
-                    saveIntoCsv(cdt, "/Users/arnaudbernard/Documents/01 - Efrei/Année 1/S2/Algorithmique et structure de données/Projet-CDataFrame/CDataFrame.csv");
+                    saveIntoCsv(cdt, "./CDataFrame.csv");
                     break;
                 }
 
@@ -1063,7 +1063,7 @@ int main() {
                     printf("Vous souhaitez trier la colonne dans l'ordre croissant (0) ou décroissant (1) : ");
                     scanf("%d", &sort_order);
 
-                    cdt->mColumn[index]->mValidIndex = -1; ////////////////////////////////////////////////////////////////////////////////////
+                    cdt->mColumn[index]->mValidIndex = -1;
                     if (sort_order == asc)
                         sort(cdt->mColumn[index], asc);
                     else if (sort_order == asc)
@@ -1187,7 +1187,7 @@ int main() {
                         break;
                     }
 
-                    cdt->mColumn[index]->mValidIndex = -1; ///////////////////////////////////////////////////////////////////////////////////////////
+                    cdt->mColumn[index]->mValidIndex = -1;
                     updateIndex(cdt->mColumn[index]);
                     break;
                 }
@@ -1220,12 +1220,12 @@ int main() {
                 }
 
                 case 33 : { /* Charger un fichier data.csv */
-                    cdt = loadFromCsv("/Users/arnaudbernard/Documents/01 - Efrei/Année 1/S2/Algorithmique et structure de données/Projet-CDataFrame/data.csv", 20);
+                    cdt = loadFromCsv("./data.csv", 20);
                     break;
                 }
 
                 case 34 : { /* Sauvegarder le CDataFrame dans un CDataFrame.csv */
-                    saveIntoCsv(cdt, "/Users/arnaudbernard/Documents/01 - Efrei/Année 1/S2/Algorithmique et structure de données/Projet-CDataFrame/CDataFrame.csv");
+                    saveIntoCsv(cdt, "./CDataFrame.csv");
                     break;
                 }
 

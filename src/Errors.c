@@ -1,7 +1,7 @@
 //
 // Created by OEYBuisson on 18/09/2024.
 //
-#include "Errors.h"
+#include "../include/Errors.h"
 
 #include <stdio.h>
 #include <stdlib.h>

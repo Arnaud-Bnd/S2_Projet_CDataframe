@@ -1,17 +1,17 @@
-cmake_minimum_required(VERSION 3.26)
-project(Projet_CDataframe C CXX)
+cmake_minimum_required(VERSION 3.25)
+project(Projet_CDataframe C)
 
 # Standards de langages
 set(CMAKE_C_STANDARD 17)
-set(CMAKE_CXX_STANDARD 17)
+#set(CMAKE_CXX_STANDARD 17)
 
 # S'assurer que les standards sont requis
 set(CMAKE_C_STANDARD_REQUIRED ON)
-set(CMAKE_CXX_STANDARD_REQUIRED ON)
+#set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 # Extensions des compilateurs (optionnel, peut être désactivé)
 set(CMAKE_C_EXTENSIONS OFF)
-set(CMAKE_CXX_EXTENSIONS OFF)
+#set(CMAKE_CXX_EXTENSIONS OFF)
 
 # --- Configuration Doxygen ---
 find_package(Doxygen)
@@ -32,17 +32,17 @@ if (DOXYGEN_FOUND)
 endif()
 
 # Exécutable principal
-add_executable(Projet_CDataframe 
-    Errors.h
-    Errors.c
-    SortType.h
-    main.c
-    column.c
-    column.h
-    cdataframe.h
-    cdataframe.c
-    features.h
-    features.c
+add_executable(Projet_CDataframe
+        include/Errors.h
+        src/Errors.c
+        include/SortType.h
+        src/main.c
+        src/column.c
+        include/column.h
+        include/cdataframe.h
+        src/cdataframe.c
+        include/features.h
+        src/features.c
 )
 
 # Si tu veux forcer la compilation en C++ même pour les fichiers .c
@@ -56,7 +56,6 @@ if(CMAKE_C_COMPILER_ID STREQUAL "GNU" OR CMAKE_C_COMPILER_ID STREQUAL "Clang")
 endif()
 
 # Définir des macros pour la compatibilité C/C++
-target_compile_definitions(Projet_CDataframe PRIVATE
-    $<$<COMPILE_LANGUAGE:CXX>:__cplusplus>
-)
-
+#target_compile_definitions(Projet_CDataframe PRIVATE
+#    $<$<COMPILE_LANGUAGE:CXX>:__cplusplus>
+#)

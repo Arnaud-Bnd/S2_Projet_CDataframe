@@ -1,8 +1,8 @@
 //
 // Created by Arnaud Bernard on 20/04/2024.
 //
-#include "cdataframe.h"
-#include "Errors.h"
+#include "../include/cdataframe.h"
+#include "../include/Errors.h"
 
 #include <stdio.h>
 #include <stdlib.h>

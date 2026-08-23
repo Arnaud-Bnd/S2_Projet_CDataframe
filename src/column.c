@@ -1,8 +1,8 @@
 //
 // Created by Arnaud Bernard on 28/03/2024.
 //
-#include "column.h"
-#include "Errors.h"
+#include "../include/column.h"
+#include "../include/Errors.h"
 
 #include <stdio.h>
 #include <stdlib.h>

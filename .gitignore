@@ -15,3 +15,7 @@ build/
 
 # Personal backups
 Sauvegarde/
+
+# Fichiers générés par le programme
+CDataFrame.csv
+data2.csv
