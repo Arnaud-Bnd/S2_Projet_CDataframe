@@ -1,0 +1,12 @@
+.git
+.gitignore
+.idea
+build/
+cmake-build-*/
+*.o
+*.obj
+*.exe
+.DS_Store
+README.md
+Dockerfile
+.dockerignore
